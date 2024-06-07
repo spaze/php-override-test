@@ -1,0 +1,26 @@
+name: PHP tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  info:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version:
+          - "8.3"
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup PHP Action
+      uses: shivammathur/setup-php@2.30.5
+      with:
+        coverage: none
+        php-version: ${{ matrix.php-version }}
+    - name: PHP info
+      run: php override.php
